@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test2</title>
+	
+	<style>
+       /* Set the size of the div element that contains the map */
+      div > input {
+      	margin-left: 15px;    	
+      }
+
+      #field {
+      	display: flex;
+      	margin: 15px;
+      }
+
+      #btnCont {
+      	position: fixed;
+	    height: 100px;
+	    width: 100%;
+	    bottom: 0px;
+	    background-color: white;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    border-top: solid 1px black;
+	    padding: 50px;
+      }
+
+      #content { 
+      	margin-bottom: 180px;
+      }
+
+      #content > h3{
+		text-align: center;
+    	color: red;
+      }
+    </style>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<!-- Latest compiled JavaScript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<a href="./index.html">Volver</a>
+	<h3>Servicio dado en </h3>    
+	<h3 id="urlpost">Servicio dado en </h3>
+	<div id="content">
+		<div id="field"> categoryA <input id="categoryA" type="text" class="form-control" value="B"> </div>
+		<div id="field"> categoryB <input id="categoryB" type="text" class="form-control" value="B2"> </div>
+		<div id="field"> comments <input id="comments" type="text" class="form-control" value="No me están entregando medicamentos ni mi hicieron terapia restaurativa"> </div>
+		<div id="field"> name <input id="name" type="text" class="form-control" value="Carlos"> </div>
+		<div id="field"> email <input id="email" type="text" class="form-control" value="diegorengifov@gmail.com"> </div>
+		<div id="field"> phone <input id="phone" type="text" class="form-control" value="3125853948"> </div>
+		<div id="field"> code_state <input id="code_state" type="text" class="form-control" value="24"> </div>
+		<div id="field"> code_city <input id="code_city" type="text" class="form-control" value="13"> </div>
+		<div id="field"> gender <input id="gender" type="text" class="form-control" value="M"> </div>
+		<div id="field"> staName <input id="staName" type="text" class="form-control" value="RISARALDA"> </div>
+		<div id="field"> citName <input id="citName" type="text" class="form-control" value="BALBOA"> </div>
+		<div id="field"> latitude <input id="latitude" type="text" class="form-control" value="4.949748"> </div>
+		<div id="field"> longitude <input id="longitude" type="text" class="form-control" value="75.958017"> </div>		
+    	<h3 id="res"></h3>  
+	</div>
+	<div id="btnCont">
+		<button id="validateBtn" type="button" class="btn btn-primary btn-block">Enviar</button>		
+	</div>
+
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+		
+
+			
+			var loc = ""+window.location;
+			var webserv = loc.substr(0,loc.length-"test2.html".length)+"test2_post.php";
+			//var webserv = "https://www.ethgf.com/hometuls/test2_post.php";
+			//var webserv = "http://34.201.19.114:40003/recordController/createRecord";
+			
+			$("#urlpost").text(webserv);
+			
+			$( "#validateBtn").click(function(data) {
+				var valores = {				  
+					  //"uuid": null,
+					  "categoryA": $("#categoryA").val(),
+					  "categoryB": $("#categoryB").val(),
+					  "categoryC": null,
+					  "subCategory": null,
+					  "institutionName": null,
+					  "comments": $("#comments").val(),
+					  "politicA": null,
+					  "politicB": null,
+					  "politicC": null,
+					  "anonymus": false,
+					  "name": $("#name").val(),
+					  "email": $("#email").val(),
+					  "phone": $("#phone").val(),
+					  "code_state": $("#code_state").val(),
+					  "code_city": $("#code_city").val(),
+					  "gender": $("#gender").val(),
+					  //"ip_address": "190.131.248.33",
+					  //"ip_info": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36",
+					  "date": (new Date()).getTime(),
+					  "image": null,
+					  "staName": $("#staName").val(),
+					  "citName": $("#citName").val(),
+					  "citId": null,
+					  "latitude": parseFloat($("#latitude").val()),
+					  "longitude": parseFloat($("#longitude").val()),
+					  "locInfo": null,
+					  "countItems": 0,
+					  "fileRecords": null
+					};
+
+				$.post( webserv, valores).done(
+					function( data ) {
+						console.log('Responde',data);
+						$( "#res").html("Guardado con id: "+data);		  			
+					});			
+  			});
+
+
+		});
+	</script>
+</body>
+</html>

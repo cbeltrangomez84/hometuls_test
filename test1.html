@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test1</title>
+
+	<style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<a href="./index.html">Volver</a>
+	<h3>Mapa Google</h3>    
+    <div id="map"></div>
+
+	<script>
+		function initMap() {
+			
+			$.getJSON('https://34.201.19.114:40003/recordController/getAllRecords', function(data) {
+    			//data is the JSON string
+    			console.log('Se trajo datos',data);
+
+				var firstPoint = null;
+
+    			var map = new google.maps.Map(document.getElementById('map'), {zoom: 4});
+
+    			Object.values(data).forEach(function (data)
+    			{
+    				var point = {lat: data.latitude, lng: data.longitude};    				
+    				if(!firstPoint) firstPoint = point;
+
+					var marker = new google.maps.Marker({position: point, map: map});
+					var infowindow = new google.maps.InfoWindow({
+			      		content: data.name + "-" + data.email
+			    	});
+
+			    	google.maps.event.addListener(marker, 'click', function() {
+				      infowindow.open(map,marker);						
+				    });
+    			})
+
+    			map.setCenter(firstPoint);
+			});
+			
+		}
+	</script>
+
+	<script async defer
+    	src="https://maps.googleapis.com/maps/api/js?key=[YOUR_KEY]&callback=initMap">
+    </script>
+
+</body>
+</html>

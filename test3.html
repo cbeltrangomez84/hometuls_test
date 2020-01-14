@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test3</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<a href="./index.html">Volver</a>
+	<h3>Validador Google</h3>    
+	
+	<pre>
+	//Problema resuelto usando una expresion regular en js
+	if(/^(G|g)(O|o|0|(\(\))|(\[\])|(<>)){2}(G|g)(I|L|l)(e|E|3)$/g.test(str)) {
+		$( "#res").html("Valido!")
+	}
+	else {
+		$( "#res").html("No Valido")
+	}
+	</pre>
+
+	<h3>Cadena</h3>    
+	<input id="infoGoogleTxt" type="text" class="form-control" id="usr">
+	<button id="validateBtn" type="button" class="btn btn-primary">Validar</button>
+
+	<h3 id="res"></h3>  
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+			$( "#validateBtn").click(function(data) {
+				var str = $( "#infoGoogleTxt").val();
+				if(/^(G|g)(O|o|0|(\(\))|(\[\])|(<>)){2}(G|g)(I|L|l)(e|E|3)$/g.test(str)) {
+					$( "#res").html("Valido!")
+				}
+				else {
+					$( "#res").html("No Valido")
+				}
+  			});
+		});
+	</script>
+</body>
+</html>
